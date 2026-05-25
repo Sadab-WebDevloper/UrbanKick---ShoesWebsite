@@ -11,13 +11,32 @@ const app = express();
 connectDB();
 
 // Middleware
-const allowedOrigins = ['http://localhost:3000', 'http://127.0.0.1:3000', 'http://localhost:3001', 'http://127.0.0.1:3001'];
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://127.0.0.1:3000',
+  'http://localhost:3001',
+  'http://127.0.0.1:3001'
+];
+
+if (process.env.FRONTEND_URL) {
+  allowedOrigins.push(process.env.FRONTEND_URL);
+  // Also clean trailing slash if present
+  try {
+    const trimmed = process.env.FRONTEND_URL.replace(/\/$/, "");
+    if (!allowedOrigins.includes(trimmed)) {
+      allowedOrigins.push(trimmed);
+    }
+  } catch (e) {
+    // Ignore error
+  }
+}
+
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
+      callback(new Error(`Not allowed by CORS: ${origin}`));
     }
   },
   credentials: true,

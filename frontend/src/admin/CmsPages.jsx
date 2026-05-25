@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL } from '../config/api';
@@ -15,11 +15,7 @@ const CmsPages = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
 
-  useEffect(() => {
-    fetchPages();
-  }, []);
-
-  const fetchPages = async () => {
+  const fetchPages = useCallback(async () => {
     try {
       const response = await axios.get(`${API_URL}/api/pages/cms-pages`, {
         headers: { Authorization: `Bearer ${token}` }
@@ -30,7 +26,11 @@ const CmsPages = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [token]);
+
+  useEffect(() => {
+    fetchPages();
+  }, [fetchPages]);
 
   const handleDelete = async () => {
     if (!selectedId) return;
