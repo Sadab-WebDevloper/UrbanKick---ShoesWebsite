@@ -42,20 +42,20 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center py-24 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-transparent flex items-center justify-center py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full animate-slide-up">
         <div className="text-center mb-8">
-          <h2 className="text-4xl md:text-5xl font-black text-primary mb-3">
+          <h2 className="text-4xl md:text-5xl font-black text-white mb-3 tracking-tighter">
             Welcome Back
           </h2>
-          <p className="text-secondary text-lg font-medium">
+          <p className="text-gray-400 text-lg font-medium">
             Sign in to continue your sneaker journey
           </p>
         </div>
 
-        <form className="space-y-5 bg-white p-8 md:p-10 rounded-[2.5rem] shadow-2xl border border-gray-50" onSubmit={handleSubmit}>
+        <form className="space-y-5 bg-zinc-900/50 backdrop-blur-xl p-8 md:p-10 rounded-[2.5rem] shadow-2xl border border-white/5" onSubmit={handleSubmit}>
           {error && (
-            <div className="bg-red-50 border-2 border-red-100 text-red-600 px-5 py-4 rounded-2xl text-sm font-bold animate-fade-in">
+            <div className="bg-red-500/10 border border-red-500/20 text-red-400 px-5 py-4 rounded-2xl text-sm font-bold animate-fade-in">
               {error}
             </div>
           )}
@@ -72,7 +72,7 @@ const Login = () => {
                 required
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-6 py-4 bg-gray-50 border-2 border-gray-50 rounded-2xl text-primary font-bold placeholder-gray-400 focus:outline-none focus:border-accent focus:bg-white transition-all duration-300"
+                className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-2xl text-white font-bold placeholder-gray-500 focus:outline-none focus:border-accent focus:bg-white/10 transition-all duration-300"
                 placeholder="your@email.com"
               />
             </div>
@@ -89,13 +89,13 @@ const Login = () => {
                   required
                   value={formData.password}
                   onChange={handleChange}
-                  className="w-full px-6 py-4 pr-14 bg-gray-50 border-2 border-gray-50 rounded-2xl text-primary font-bold placeholder-gray-400 focus:outline-none focus:border-accent focus:bg-white transition-all duration-300"
+                  className="w-full px-6 py-4 pr-14 bg-white/5 border border-white/10 rounded-2xl text-white font-bold placeholder-gray-500 focus:outline-none focus:border-accent focus:bg-white/10 transition-all duration-300"
                   placeholder="Enter your password"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-primary transition-colors p-2"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors p-2"
                 >
                   {showPassword ? (
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -116,7 +116,7 @@ const Login = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-4 rounded-2xl bg-primary text-white font-black text-sm uppercase tracking-[0.2em] hover:bg-slate-800 transition-all duration-300 transform hover:scale-[1.02] active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed shadow-2xl shadow-primary/20"
+              className="w-full py-4 rounded-2xl bg-accent text-white font-black text-sm uppercase tracking-[0.2em] hover:bg-orange-600 transition-all duration-300 transform hover:scale-[1.02] active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed shadow-2xl shadow-accent/20"
             >
               {loading ? (
                 <span className="flex items-center justify-center">
@@ -129,8 +129,8 @@ const Login = () => {
             </button>
           </div>
 
-          <div className="text-center pt-6 border-t border-gray-50 mt-6">
-            <p className="text-secondary text-sm font-medium">
+          <div className="text-center pt-6 border-t border-white/5 mt-6">
+            <p className="text-gray-400 text-sm font-medium">
               Don't have an account yet?{' '}
               <Link to="/register" className="text-accent font-black hover:underline underline-offset-4 ml-1">
                 Create Account

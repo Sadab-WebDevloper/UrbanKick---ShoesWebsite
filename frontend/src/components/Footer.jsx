@@ -41,12 +41,35 @@ const Footer = () => {
             </p>
             <div className="flex space-x-3">
               {[
-                { label: 'FB', url: 'https://facebook.com' },
-                { label: 'IG', url: 'https://instagram.com' },
-                { label: 'X', url: 'https://twitter.com' }
+                { 
+                  icon: (
+                    <svg className="w-4 h-4 text-white fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1V12h3v3h-3v6.8c4.56-.93 8-4.96 8-9.8z"/>
+                    </svg>
+                  ),
+                  url: 'https://www.facebook.com/sadab.mamu.7' 
+                },
+                { 
+                  icon: (
+                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                  ),
+                  url: 'https://www.instagram.com/sadab_mamu/' 
+                },
+                { 
+                  icon: (
+                    <svg className="w-4 h-4 text-white fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M22.23 0H1.77C.8 0 0 .77 0 1.72v20.56C0 23.23.8 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.72V1.72C24 .77 23.2 0 22.23 0zM7.12 20.45H3.56V9h3.56v11.45zM5.34 7.43c-1.14 0-2.06-.92-2.06-2.06 0-1.14.92-2.06 2.06-2.06 1.14 0 2.06.92 2.06 2.06 0 1.14-.92 2.06-2.06 2.06zm15.11 13.02h-3.56v-5.6c0-1.34-.03-3.05-1.86-3.05-1.86 0-2.14 1.45-2.14 2.95v5.7H9.33V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29z"/>
+                    </svg>
+                  ),
+                  url: 'https://www.linkedin.com/in/mohmad-sadab-mamu-a73707338/' 
+                }
               ].map((social, index) => (
-                <a key={index} href={social.url} target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-accent hover:border-accent transition-all duration-300">
-                  <span className="text-[10px] font-black uppercase">{social.label}</span>
+                <a key={index} href={social.url} target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-accent hover:border-accent hover:scale-105 transition-all duration-300">
+                  {social.icon}
                 </a>
               ))}
             </div>
@@ -84,16 +107,23 @@ const Footer = () => {
             <div className="min-w-[120px]">
               <h4 className="text-[10px] font-black uppercase tracking-[0.2em] mb-6 text-gray-500">Support</h4>
               <div className="flex flex-col space-y-3">
-                {/* Dynamically loaded CMS pages */}
-                {cmsPages.map(page => (
-                  <Link 
-                    key={page._id} 
-                    to={`/pages/${page.slug}`} 
-                    className="text-sm font-bold text-gray-300 hover:text-accent transition-colors"
-                  >
-                    {page.title}
-                  </Link>
-                ))}
+                {cmsPages.length > 0 ? (
+                  cmsPages.map(page => (
+                    <Link 
+                      key={page._id} 
+                      to={`/pages/${page.slug}`} 
+                      className="text-sm font-bold text-gray-300 hover:text-accent transition-colors"
+                    >
+                      {page.title}
+                    </Link>
+                  ))
+                ) : (
+                  <>
+                    <Link to="/pages/privacy-policy" className="text-sm font-bold text-gray-300 hover:text-accent transition-colors">Privacy Policy</Link>
+                    <Link to="/pages/terms-conditions" className="text-sm font-bold text-gray-300 hover:text-accent transition-colors">Terms of Service</Link>
+                    <Link to="/contact" className="text-sm font-bold text-gray-300 hover:text-accent transition-colors">Help & FAQ</Link>
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -101,18 +131,10 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-white/5 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-gray-500 text-[10px] font-black uppercase tracking-[0.2em]">
+        <div className="border-t border-white/5 mt-16 pt-8 flex justify-center items-center">
+          <p className="text-gray-500 text-[10px] font-black uppercase tracking-[0.2em] text-center">
             &copy; {new Date().getFullYear()} UrbanKick. All Rights Reserved. Created By Sadab.
           </p>
-          <div className="flex space-x-8 text-[10px] font-black uppercase tracking-[0.2em] text-gray-500">
-            {cmsPages.length === 0 && (
-              <>
-                <Link to="/pages/privacy-policy" className="hover:text-white transition-colors cursor-pointer">Privacy Policy</Link>
-                <Link to="/pages/terms-conditions" className="hover:text-white transition-colors cursor-pointer">Terms of Service</Link>
-              </>
-            )}
-          </div>
         </div>
       </div>
     </footer>

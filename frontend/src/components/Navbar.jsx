@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Settings, LogOut, ChevronDown, Camera, X, User as UserIcon, Package, ShoppingCart } from 'lucide-react';
+import { Settings, LogOut, ChevronDown, Camera, X, User as UserIcon, Package, ShoppingCart, Menu } from 'lucide-react';
 import { API_URL } from '../config/api';
 import { useCart } from '../context/CartContext';
 import LogoutModal from './LogoutModal';
@@ -21,6 +21,7 @@ const Navbar = () => {
   const dropdownRef = useRef(null);
   const fileInputRef = useRef(null);
   const [logoutModalOpen, setLogoutModalOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -131,7 +132,7 @@ const Navbar = () => {
                 )}
               </Link>
               {isAuthenticated ? (
-                <div className="relative" ref={dropdownRef}>
+                <div className="relative hidden md:block" ref={dropdownRef}>
                   <button
                     onClick={() => setProfileOpen(!profileOpen)}
                     className="flex items-center space-x-3 bg-zinc-900/80 p-1.5 pr-4 rounded-full border border-white/10 hover:bg-zinc-800 hover:border-white/20 transition-all duration-300 group"
@@ -179,15 +180,148 @@ const Navbar = () => {
                   )}
                 </div>
               ) : (
-                <div className="flex items-center space-x-4">
+                <div className="hidden md:flex items-center space-x-4">
                   <Link to="/login" className="text-sm font-black uppercase tracking-widest text-gray-300 hover:text-accent transition-colors">Login</Link>
-                  <Link to="/register" className="bg-accent text-white px-8 py-3 rounded-full text-sm font-black uppercase tracking-widest shadow-xl shadow-accent/20 hover:bg-orange-600 transition-all hover:scale-105 active:scale-95">Sign Up</Link>
+                  <Link to="/register" className="bg-accent text-white px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-widest shadow-xl shadow-accent/20 hover:bg-orange-600 transition-all hover:scale-105 active:scale-95">Sign Up</Link>
                 </div>
               )}
+
+              {/* Mobile Menu Toggle Button */}
+              <button 
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="p-2 text-white hover:text-accent transition-colors md:hidden focus:outline-none"
+                title="Toggle Menu"
+              >
+                <Menu className="w-5 h-5" />
+              </button>
             </div>
           </div>
         </div>
       </nav>
+
+      {/* Mobile Drawer Overlay */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-[150] bg-zinc-950/98 backdrop-blur-2xl flex flex-col md:hidden animate-fade-in">
+          {/* Header */}
+          <div className="flex justify-between items-center px-6 py-5 border-b border-white/5 shrink-0">
+            <Link to="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-accent rounded-xl flex items-center justify-center text-white font-black">U</div>
+              <span className="text-2xl font-black text-white tracking-tighter">
+                URBAN<span className="text-accent">KICK</span>
+              </span>
+            </Link>
+            <button 
+              onClick={() => setMobileMenuOpen(false)}
+              className="p-2 text-white hover:text-accent transition-colors"
+            >
+              <X className="w-6 h-6" />
+            </button>
+          </div>
+
+          {/* Links */}
+          <div className="flex flex-col items-center justify-start flex-grow overflow-y-auto py-12 space-y-6 px-6">
+            <Link 
+              to="/" 
+              onClick={() => setMobileMenuOpen(false)}
+              className={`text-sm font-black uppercase tracking-[0.2em] transition-all hover:text-accent ${location.pathname === '/' ? 'text-accent' : 'text-gray-300'}`}
+            >
+              Home
+            </Link>
+            <Link 
+              to="/new-arrivals" 
+              onClick={() => setMobileMenuOpen(false)}
+              className={`text-sm font-black uppercase tracking-[0.2em] transition-all hover:text-accent ${location.pathname === '/new-arrivals' ? 'text-accent' : 'text-gray-300'}`}
+            >
+              New Arrivals
+            </Link>
+            <Link 
+              to="/products" 
+              onClick={() => setMobileMenuOpen(false)}
+              className={`text-sm font-black uppercase tracking-[0.2em] transition-all hover:text-accent ${location.pathname === '/products' ? 'text-accent' : 'text-gray-300'}`}
+            >
+              Products
+            </Link>
+            <Link 
+              to="/about" 
+              onClick={() => setMobileMenuOpen(false)}
+              className={`text-sm font-black uppercase tracking-[0.2em] transition-all hover:text-accent ${location.pathname === '/about' ? 'text-accent' : 'text-gray-300'}`}
+            >
+              About
+            </Link>
+            <Link 
+              to="/contact" 
+              onClick={() => setMobileMenuOpen(false)}
+              className={`text-sm font-black uppercase tracking-[0.2em] transition-all hover:text-accent ${location.pathname === '/contact' ? 'text-accent' : 'text-gray-300'}`}
+            >
+              Contact
+            </Link>
+
+            {/* If not authenticated, show login/signup in menu */}
+            {!isAuthenticated ? (
+              <div className="flex flex-col w-full items-center pt-6 border-t border-white/5 max-w-xs space-y-4 shrink-0">
+                <Link 
+                  to="/login" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="w-full text-center py-3.5 rounded-full border border-white/10 text-xs font-black uppercase tracking-widest text-gray-300 hover:text-accent hover:border-accent transition-all"
+                >
+                  Login
+                </Link>
+                <Link 
+                  to="/register" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="w-full text-center py-3.5 rounded-full bg-accent text-white text-xs font-black uppercase tracking-widest hover:bg-orange-600 transition-all shadow-xl shadow-accent/20"
+                >
+                  Sign Up
+                </Link>
+              </div>
+            ) : (
+              <div className="flex flex-col w-full items-center pt-6 border-t border-white/5 max-w-xs space-y-4 shrink-0">
+                <div className="flex items-center space-x-3 mb-2">
+                  <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-zinc-800 bg-accent flex items-center justify-center text-white font-bold shrink-0">
+                    {user?.profileImage ? (
+                      <img src={getFullImageUrl(user.profileImage)} alt="Avatar" className="w-full h-full object-cover" />
+                    ) : (
+                      user?.firstName?.[0] || 'U'
+                    )}
+                  </div>
+                  <div className="text-left">
+                    <p className="text-xs font-black text-white leading-none uppercase">{user?.firstName} {user?.lastName}</p>
+                    <p className="text-[10px] text-gray-400 font-bold tracking-widest mt-0.5 capitalize">{user?.role}</p>
+                  </div>
+                </div>
+                {user?.role === 'admin' && (
+                  <Link 
+                    to="/admin/dashboard" 
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="w-full text-center py-3.5 rounded-full bg-accent text-white text-xs font-black uppercase tracking-widest hover:bg-orange-600 transition-all shadow-xl shadow-accent/20"
+                  >
+                    Admin Dashboard
+                  </Link>
+                )}
+                <button 
+                  onClick={() => { setSettingsOpen(true); setMobileMenuOpen(false); }}
+                  className="w-full text-center py-3.5 rounded-full border border-white/10 text-xs font-black uppercase tracking-widest text-gray-300 hover:text-accent hover:border-accent transition-all"
+                >
+                  Profile Settings
+                </button>
+                <Link 
+                  to="/myorders" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="w-full text-center py-3.5 rounded-full border border-white/10 text-xs font-black uppercase tracking-widest text-gray-300 hover:text-accent hover:border-accent transition-all"
+                >
+                  My Orders
+                </Link>
+                <button 
+                  onClick={() => { handleLogoutClick(); setMobileMenuOpen(false); }}
+                  className="w-full text-center py-3.5 rounded-full bg-red-500/10 border border-red-500/20 text-xs font-black uppercase tracking-widest text-red-400 hover:bg-red-500/20 transition-all"
+                >
+                  Logout
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       {settingsOpen && (
         <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in">

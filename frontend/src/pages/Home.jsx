@@ -65,7 +65,7 @@ const Home = () => {
     <div className="min-h-screen bg-transparent">
       <SEO title="Home - UrbanKick" description="Discover premium sneakers that define your unique journey at UrbanKick." />
       {/* Hero Slider Section */}
-      <section className="relative h-screen overflow-hidden bg-transparent">
+      <section className="relative h-[720px] sm:h-[800px] lg:h-screen overflow-hidden bg-transparent">
         {/* Slider Container */}
         <div className="relative h-full">
           {heroSlides.map((slide, index) => (
@@ -79,28 +79,28 @@ const Home = () => {
                   : 'opacity-0 translate-x-full'
               }`}
             >
-              <div className="h-full flex items-center justify-center">
-                <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full">
+              <div className="h-full flex items-center justify-center pt-24 lg:pt-0">
+                <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-center w-full">
                   {/* Text Content */}
                   <div className="text-center lg:text-left z-10">
-                    <h1 className="text-5xl md:text-7xl font-black text-white mb-6 tracking-tighter leading-none text-glow animate-slide-up">
+                    <h1 className="text-4xl sm:text-5xl md:text-7xl font-black text-white mb-3 lg:mb-6 tracking-tighter leading-none text-glow animate-slide-up">
                       {slide.title}
                       <br />
                       <span className="text-accent">{slide.subtitle}</span>
                     </h1>
-                    <p className="text-lg md:text-xl text-gray-300 mb-8 animate-fade-in font-medium max-w-md mx-auto lg:mx-0 leading-relaxed">
+                    <p className="text-sm sm:text-base md:text-xl text-gray-300 mb-4 lg:mb-8 animate-fade-in font-medium max-w-md mx-auto lg:mx-0 leading-relaxed">
                       {slide.description}
                     </p>
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fade-in">
+                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start animate-fade-in">
                       <Link
                         to="/products"
-                        className="inline-flex items-center justify-center bg-accent text-white px-8 py-3.5 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-orange-600 transition-all duration-300 transform hover:-translate-y-0.5 shadow-lg shadow-accent/20"
+                        className="inline-flex items-center justify-center bg-accent text-white px-6 py-2.5 sm:px-8 sm:py-3.5 rounded-2xl font-black uppercase tracking-widest text-[10px] sm:text-xs hover:bg-orange-600 transition-all duration-300 transform hover:-translate-y-0.5 shadow-lg shadow-accent/20"
                       >
                         Shop Now
                       </Link>
                       <Link
                         to="/products"
-                        className="inline-flex items-center justify-center bg-white/5 text-white border border-white/10 px-8 py-3.5 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-white/10 transition-all duration-300 transform hover:-translate-y-0.5"
+                        className="inline-flex items-center justify-center bg-white/5 text-white border border-white/10 px-6 py-2.5 sm:px-8 sm:py-3.5 rounded-2xl font-black uppercase tracking-widest text-[10px] sm:text-xs hover:bg-white/10 transition-all duration-300 transform hover:-translate-y-0.5"
                       >
                         Explore Collection
                       </Link>
@@ -108,17 +108,17 @@ const Home = () => {
                   </div>
 
                   {/* Image */}
-                  <div className="relative animate-fade-in flex justify-center">
-                    <div className="relative rounded-[3rem] overflow-hidden shadow-2xl border border-white/10 bg-white/5 aspect-square max-w-[460px] w-full flex items-center justify-center p-6">
+                  <div className="relative animate-fade-in flex justify-center mt-4 lg:mt-0">
+                    <div className="relative rounded-[2rem] lg:rounded-[3rem] overflow-hidden shadow-2xl border border-white/10 bg-white/5 aspect-square max-w-[200px] sm:max-w-[320px] lg:max-w-[460px] w-full flex items-center justify-center p-4 lg:p-6">
                       <img
                         src={slide.image}
                         alt={`Slide ${index + 1}`}
                         className="w-full h-full object-contain transform hover:scale-105 transition-transform duration-700 animate-float"
                       />
                     </div>
-                    <div className="absolute -bottom-4 right-4 md:right-10 bg-accent text-white px-8 py-4 rounded-3xl shadow-2xl shadow-accent/30 border border-white/10 transform hover:scale-105 transition-all">
-                      <p className="text-[10px] font-black uppercase tracking-widest text-white/80">New Arrivals</p>
-                      <p className="text-3xl font-black tracking-tight leading-none mt-1">2026</p>
+                    <div className="absolute -bottom-4 right-4 md:right-10 bg-accent text-white px-4 py-2 lg:px-8 lg:py-4 rounded-2xl lg:rounded-3xl shadow-2xl shadow-accent/30 border border-white/10 transform hover:scale-105 transition-all">
+                      <p className="text-[8px] lg:text-[10px] font-black uppercase tracking-widest text-white/80">New Arrivals</p>
+                      <p className="text-xl lg:text-3xl font-black tracking-tight leading-none mt-0.5 lg:mt-1">2026</p>
                     </div>
                   </div>
                 </div>
