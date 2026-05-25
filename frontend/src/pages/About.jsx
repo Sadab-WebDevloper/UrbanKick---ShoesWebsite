@@ -1,5 +1,5 @@
 import React from 'react';
-import { Award, Shield, Zap, Globe, Heart, Activity, CheckCircle, TrendingUp } from 'lucide-react';
+import { Shield, Zap, Globe, Heart, Activity, CheckCircle, TrendingUp } from 'lucide-react';
 import SEO from '../components/SEO';
 
 const About = () => {

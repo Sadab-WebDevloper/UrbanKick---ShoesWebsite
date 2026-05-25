@@ -7,14 +7,7 @@ import {
   DollarSign, 
   Package,
   TrendingUp,
-  Activity,
   ArrowRight,
-  Search,
-  Bell,
-  User as UserIcon,
-  ChevronDown,
-  Settings,
-  LogOut
 } from 'lucide-react';
 import { API_URL } from '../config/api';
 import Sidebar from '../components/Sidebar';

@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { 
-  Users as UsersIcon, 
   Search, 
   AlertCircle,
   X,
   CheckCircle2,
-  ShieldAlert,
   Loader2,
   Eye,
   UserCheck,
@@ -34,22 +32,23 @@ const AdminUsers = () => {
   const [toast, setToast] = useState({ show: false, message: '', type: '' });
 
   useEffect(() => {
-    fetchUsers();
-  }, []);
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/api/users`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setUsers(response.data);
+      } catch (error) {
+        console.error('Error fetching users:', error);
+        setToast({ show: true, message: 'Failed to fetch users', type: 'error' });
+        setTimeout(() => setToast({ show: false, message: '', type: '' }), 3000);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const fetchUsers = async () => {
-    try {
-      const response = await axios.get(`${API_URL}/api/users`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      setUsers(response.data);
-    } catch (error) {
-      console.error('Error fetching users:', error);
-      showToast('Failed to fetch users', 'error');
-    } finally {
-      setLoading(false);
-    }
-  };
+    fetchUsers();
+  }, [token]);
 
   const showToast = (message, type = 'success') => {
     setToast({ show: true, message, type });

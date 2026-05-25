@@ -3,17 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { 
   Plus, 
-  Search, 
-  Filter, 
   Edit2, 
   Trash2, 
-  Package,
-  TrendingUp,
-  Activity,
-  ArrowRight,
-  ChevronDown,
-  Settings,
-  LogOut,
   Eye,
   X,
   AlertCircle
@@ -28,7 +19,6 @@ const AdminProducts = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [search, setSearch] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
 
@@ -67,10 +57,7 @@ const AdminProducts = () => {
     setShowModal(true);
   };
 
-  const filteredProducts = products.filter(p => 
-    p.name.toLowerCase().includes(search.toLowerCase()) ||
-    p.category.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredProducts = products;
 
   const getFullImageUrl = (path) => {
     if (!path) return '';

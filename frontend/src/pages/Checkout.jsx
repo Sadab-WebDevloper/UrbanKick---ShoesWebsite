@@ -50,7 +50,7 @@ const Checkout = () => {
         totalPrice: cartTotal,
       };
 
-      const { data } = await axios.post(`${API_URL}/api/orders`, orderData, config);
+      await axios.post(`${API_URL}/api/orders`, orderData, config);
       
       setOrderPlaced(true);
       clearCart();

@@ -36,9 +36,13 @@ const Footer = () => {
               Premium footwear engineered for the streets and designed for the bold. Step into the future of sneaker culture.
             </p>
             <div className="flex space-x-3">
-              {['FB', 'IG', 'X'].map((label, index) => (
-                <a key={index} href="#" className="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-accent hover:border-accent transition-all duration-300">
-                  <span className="text-[10px] font-black uppercase">{label}</span>
+              {[
+                { label: 'FB', url: 'https://facebook.com' },
+                { label: 'IG', url: 'https://instagram.com' },
+                { label: 'X', url: 'https://twitter.com' }
+              ].map((social, index) => (
+                <a key={index} href={social.url} target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-accent hover:border-accent transition-all duration-300">
+                  <span className="text-[10px] font-black uppercase">{social.label}</span>
                 </a>
               ))}
             </div>

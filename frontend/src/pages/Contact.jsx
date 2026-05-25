@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Send, MessageSquare, Clock, ArrowRight } from 'lucide-react';
+import { Mail, MapPin,  MessageSquare, Clock, ArrowRight } from 'lucide-react';
 import SEO from '../components/SEO';
 
 const Contact = () => {

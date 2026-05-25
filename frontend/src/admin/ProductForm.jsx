@@ -2,12 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { 
-  Upload, 
   Check, 
   AlertCircle, 
   Camera,
-  Save,
-  Trash2,
   Image as ImageIcon,
   ChevronDown
 } from 'lucide-react';
@@ -41,25 +38,25 @@ const ProductForm = () => {
   const categories = ['Sneakers', 'Running', 'Basketball', 'Lifestyle', 'Limited Edition'];
 
   useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/api/products/${id}`);
+        setFormData({
+          ...response.data,
+          featured: response.data.featured ?? false,
+          newArrival: response.data.newArrival ?? false,
+          sizes: response.data.sizes?.length ? response.data.sizes.join(', ') : '',
+        });
+      } catch (error) {
+        console.error('Error fetching product:', error);
+        setStatus({ type: 'error', message: 'Failed to load product data' });
+      }
+    };
+
     if (isEditMode) {
       fetchProduct();
     }
-  }, [id]);
-
-  const fetchProduct = async () => {
-    try {
-      const response = await axios.get(`${API_URL}/api/products/${id}`);
-      setFormData({
-        ...response.data,
-        featured: response.data.featured ?? false,
-        newArrival: response.data.newArrival ?? false,
-        sizes: response.data.sizes?.length ? response.data.sizes.join(', ') : '',
-      });
-    } catch (error) {
-      console.error('Error fetching product:', error);
-      setStatus({ type: 'error', message: 'Failed to load product data' });
-    }
-  };
+  }, [id, isEditMode]);
 
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
